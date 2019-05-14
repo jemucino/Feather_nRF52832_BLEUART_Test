@@ -97,7 +97,7 @@ void loop(void)
 {
   current_time = millis();
 
-  if (current_time - previous_command_time >= COMMAND_PERIOD) {
+  if (current_time - previous_command_time >= COMMAND_PERIOD - 1) {
     previous_command_time = current_time;
       
     // Wait for new data to arrive
