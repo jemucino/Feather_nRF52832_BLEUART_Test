@@ -4,7 +4,7 @@
 
 
 #define PACKET_BUTTON_LEN               (5)
-#define PACKET_SEEKBAR_LEN              (7)
+#define PACKET_SEEKBAR_LEN              (5)
 
 //    READ_BUFSIZE            Size of the read buffer for incoming packets
 #define READ_BUFSIZE                    (20)
@@ -35,6 +35,18 @@ int parseint(uint8_t *buffer)
   int i;
   memcpy(&i, buffer, 4);
   return i;
+}
+
+/**************************************************************************/
+/*!
+    @brief  Casts the four bytes at the specified address to an int
+*/
+/**************************************************************************/
+char parsechar(uint8_t *buffer)
+{
+  char c;
+  memcpy(&c, buffer, 2);
+  return c;
 }
 
 /**************************************************************************/

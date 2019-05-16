@@ -29,6 +29,7 @@ BLEUart bleuart;
 uint8_t readPacket (BLEUart *ble_uart, uint16_t timeout);
 float   parsefloat (uint8_t *buffer);
 int     parseint   (uint8_t *buffer);
+char    parsechar   (uint8_t *buffer);
 void    printHex   (const uint8_t * data, const uint32_t numBytes);
 
 // Packet buffer
@@ -97,13 +98,13 @@ void loop(void)
 {
   current_time = millis();
 
-  if (current_time - previous_command_time >= COMMAND_PERIOD - 1) {
-    previous_command_time = current_time;
-      
-    // Wait for new data to arrive
-    uint8_t len = readPacket(&bleuart, 4);
-    if (len == 0) return;
+  // Wait for new data to arrive
+  uint8_t len = readPacket(&bleuart, 2);
+//  if (len == 0) return;
   
+  if (len > 0 && current_time - previous_command_time >= COMMAND_PERIOD) {
+    previous_command_time = current_time;
+    
     // Got a packet!
     // printHex(packetbuffer, len);
   
@@ -121,7 +122,7 @@ void loop(void)
   
     // SeekBar
     if (packetbuffer[1] == 'S') {
-      int progress = parseint(packetbuffer+2);
+      int progress = (int) parsechar(packetbuffer+2);
       Serial.print ("SeekBar "); Serial.println(progress);
     }
   }
