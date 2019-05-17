@@ -131,7 +131,9 @@ uint8_t readPacket(BLEUart *ble_uart, uint16_t timeout)
   if (xsum != checksum)
   {
     Serial.print("Checksum mismatch in packet : ");
-    printHex(packetbuffer, replyidx+1);
+    printHex(packetbuffer, replyidx);
+    Serial.print("Expected : ");
+    Serial.println(xsum, HEX);
     return 0;
   }
 
