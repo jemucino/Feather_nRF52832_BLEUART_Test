@@ -30,9 +30,10 @@ float parsefloat(uint8_t *buffer)
     @brief  Casts the four bytes at the specified address to an int
 */
 /**************************************************************************/
-int parseint(uint8_t *buffer)
+int parseint32(uint8_t *buffer)
 {
   int i;
+  memset(&i, 0, sizeof(int));
   memcpy(&i, buffer, 4);
   return i;
 }
@@ -42,11 +43,12 @@ int parseint(uint8_t *buffer)
     @brief  Casts the four bytes at the specified address to an int
 */
 /**************************************************************************/
-char parsechar(uint8_t *buffer)
+int parseint16(uint8_t *buffer)
 {
-  char c;
-  memcpy(&c, buffer, 2);
-  return c;
+  int i;
+  memset(&i, 0, sizeof(int));
+  memcpy(&i, buffer, 2);
+  return i;
 }
 
 /**************************************************************************/
