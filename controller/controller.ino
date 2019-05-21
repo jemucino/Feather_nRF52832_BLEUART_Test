@@ -15,7 +15,7 @@
 #include <bluefruit.h>
 
 // Timing
-#define COMMAND_PERIOD 50
+#define COMMAND_PERIOD 30
 unsigned long current_time;
 unsigned long previous_command_time;  // Stores the time of the previous command
 
@@ -112,7 +112,7 @@ void loop(void)
     if (packetbuffer[1] == 'B') {
       uint8_t buttnum = packetbuffer[2] - '0';
       boolean pressed = packetbuffer[3] - '0';
-      Serial.print ("Button "); Serial.print(buttnum);
+      Serial.print("Button "); Serial.print(buttnum);
       if (pressed) {
         Serial.println(" pressed");
       } else {
@@ -123,7 +123,13 @@ void loop(void)
     // SeekBar
     if (packetbuffer[1] == 'S') {
       int progress = parseint16(packetbuffer+2);
-      Serial.print ("SeekBar "); Serial.println(progress);
+      Serial.print("SeekBar "); Serial.println(progress);
+    }
+    
+    // Unknown
+    if (packetbuffer[1] != 'B' && packetbuffer[1] != 'S')
+    {
+      Serial.println("Unkown packet type.");
     }
   }
 }
